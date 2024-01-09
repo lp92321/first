@@ -1,4 +1,20 @@
-#pragma once
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchart_global.h
+*  @brief   全局数据
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
+#ifndef FLOWCHART_GLOBAL_H
+#define FLOWCHART_GLOBAL_H
+
 #include <QUuid>
 #include <QPen>
 #include <QBrush>
@@ -122,3 +138,5 @@ struct FlowchartInforBase
 
 };
 typedef std::vector<FlowchartInforBase*>	FlowchartInforBases;
+
+#endif // FLOWCHART_GLOBAL_H

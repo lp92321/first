@@ -1,3 +1,17 @@
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchart_graphics_item.cpp
+*  @brief   各种算子的图元类的方法定义
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
 #include "flowchart_graphics_item.h"
 #include <QPainter>
 
@@ -54,8 +68,8 @@ FlowchartGraphicsRectItem::FlowchartGraphicsRectItem(FlowchartItemRectInfo* _inf
 
 	// ! [3] 图元信息设置
     //设置工具提示
-    item_infor_->item_content_.tooltip_ = "深度学习";
 	this->setToolTip(item_infor_->item_content_.tooltip_);
+//    SetText("新建的模型","这个模型的提示");
 	
 }
 
@@ -132,12 +146,14 @@ FlowchartInforBase* FlowchartGraphicsRectItem::GetItemInformation()
 	return item_base_info_;
 }
 
+//用来确定绘制图元的形状生效范围
 QRectF FlowchartGraphicsRectItem::boundingRect() const
 {
 	QRectF rect = QGraphicsRectItem::boundingRect().adjusted(-3, -3, 3, 3);
 	return rect;
 }
 
+//用来绘制图元的形状、内容、交互状态
 void FlowchartGraphicsRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget /*= Q_NULLPTR*/)
 {
 	painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);

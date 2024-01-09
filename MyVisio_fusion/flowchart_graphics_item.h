@@ -1,4 +1,20 @@
-#pragma once
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchart_graphics_item.h
+*  @brief   各种算子的图元类
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
+#ifndef FLOWCHART_GRAPHICS_ITEM_H
+#define FLOWCHART_GRAPHICS_ITEM_H
+
 #include <QTextEdit>
 #include <QLineEdit>
 
@@ -12,12 +28,12 @@ struct FlowchartItemRectInfo : FlowchartInforBase
 
 	FlowchartItemRectInfo() :FlowchartInforBase()
 	{
-        item_content_.tooltip_ = "深度模型";
+        item_content_.tooltip_ = "流程矩形结构体";
 	};
 	FlowchartItemRectInfo(double _x, double _y, double _width = 160.0, double _height = 40.0)
 		:FlowchartInforBase(_x, _y, _width, _height)
 	{
-        item_content_.tooltip_ = "深度模型";
+        item_content_.tooltip_ = "流程矩形结构体";
 	};   
 
 };
@@ -195,5 +211,5 @@ private:
 
 #pragma endregion 自循环
 
-
+# endif // FLOWCHART_GRAPHICS_ITEM_H
 

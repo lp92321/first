@@ -1,3 +1,17 @@
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchar_graphics_link.cpp
+*  @brief   图元连接线类的方法定义
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
 #include "flowchar_graphics_link.h"
 #include <QPainter>
 #include <QDebug>
@@ -29,7 +43,6 @@ FlowcharGraphicsLink::FlowcharGraphicsLink(FlowchartGraphicsItem* _start_item, F
     //层级决定同级（相邻）项目的堆叠顺序。层级较高的同级项将始终绘制在层级较低的另一同级项之上。
 	setZValue(3);
     //设置部件的工具提示文本
-    link_infor_->item_content_.tooltip_ = "图元运行方向";
     this->setToolTip(link_infor_->item_content_.tooltip_);
 	// 初始化中点位置
 	angle_start_ = link_infor_->angle_start_;
@@ -82,14 +95,18 @@ void FlowcharGraphicsLink::UpdateLineArrow()
 	// ! [2] 获取弧线
     //QPainterPath类提供了一个用于绘制操作的容器(画线框)
 	arrow_path_ = QPainterPath();
+    //将当前点移动到给定点，隐式启动新的子路径并关闭上一个子路径
 	arrow_path_.moveTo(start_point_);
 	std::vector<Q_PointF>ctrl_points;
 	ctrl_points.push_back(Q_PointF(start_point_.x(), start_point_.y()));
 	ctrl_points.push_back(Q_PointF(mid_point_.x(), mid_point_.y()));
 	ctrl_points.push_back(Q_PointF(end_point_.x(), end_point_.y()));
 	Curve curve;
+    // 获取曲线点集
 	std::vector<Q_PointF>curve_points = curve.Generate(ctrl_points);
 	for (const auto& point : curve_points)
+        //添加一条从当前位置到给定端点的直线。绘制直线后，当前位置将更新为直线的终点。
+        //struct pair结构体中两个成员变量first，second
 		arrow_path_.lineTo(QPointF(point.first, point.second));
 	// 掏空，防止首尾相连
     //QPainterPathStroker类用于为给定的绘制器路径生成可填充的轮廓。
@@ -101,13 +118,15 @@ void FlowcharGraphicsLink::UpdateLineArrow()
 	// ! [3] 获取箭头
 	QPointF arrow_start_point = QPointF(curve_points[curve_points.size() - 2].first, curve_points[curve_points.size() - 2].second);
 	QPointF arrow_end_point = QPointF(curve_points[curve_points.size() - 1].first, curve_points[curve_points.size() - 1].second);
-	last_line_.setPoints(arrow_start_point, arrow_end_point);
+    //最后一段直线，用于计算箭头夹角
+    last_line_.setPoints(arrow_start_point, arrow_end_point);
 	qreal arrowSize = 16;
-    //atan2函数在C语言里返回的是指方位角，C 语言中atan2的函数原型为 double atan2(double y, double x) ，返回以弧度表示的 y/x 的反正切
+    //atan2函数在C语言里返回的是指方位角，返回以弧度表示的 y/x 的反正切，C 语言中atan2的函数原型为 double atan2(double y, double x)
 	double angle = std::atan2(-last_line_.dy(), last_line_.dx());
 	QPointF arrowP1 = end_point_ - QPointF(sin(angle + M_PI / 3) * arrowSize, cos(angle + M_PI / 3) * arrowSize);
 	QPointF arrowP2 = end_point_ - QPointF(sin(angle + M_PI - M_PI / 3) * arrowSize, cos(angle + M_PI - M_PI / 3) * arrowSize);
-	arrow_head_.clear();
+    // 箭头（多个点连接成的图形）QPolygonF类型 QPolygonF是一个QVector＜QPointF＞。
+    arrow_head_.clear();
 	arrow_head_ << end_point_ << arrowP1 << arrowP2 << end_point_;
     //将给定的多边形作为（未闭合的）子路径添加到路径中。
     //请注意，添加多边形后的当前位置是多边形中的最后一个点。

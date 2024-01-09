@@ -1,4 +1,19 @@
-#pragma once
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchart_scene.h
+*  @brief   模型编辑窗口场景类
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
+#ifndef FLOWCHART_SCENE_H
+#define FLOWCHART_SCENE_H
 
 #include <QGraphicsScene>
 #include <QObject>
@@ -16,6 +31,7 @@ enum class SceneMode
     DrawLineItem, //划线十字光标
     MoveItem //标准箭头光标
 };
+
 class CutomTextWdit;
 class FlowchartScene : public QGraphicsScene
 {
@@ -82,9 +98,12 @@ protected:
 
     virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);//鼠标双击事件：图元文本编辑
     virtual void keyPressEvent(QKeyEvent *event);//键盘ESC和del键事件处理
-	virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    //鼠标画线模式点击则创建QGraphicsLineItem，鼠标光标模式点击移动图元中心
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    //画线模式生成临时线temp_line_，鼠标模式拖动图元移动
 	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    //绘制图元的连线
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);//当拖放操作进入窗体时发送给它的事件
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);//在进行拖放操作时发送的事件
     virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);//当拖放操作离开窗体时发送给它的事件
@@ -92,7 +111,7 @@ protected:
 //    bool eventFilter(QObject *obj,QEvent *e);//重写事件筛选器
 private:
 
-    FlowchartView	  *widget_;	 // 视口
+    FlowchartView	  *widget_;	 // 视口(交给ui)
     QMenu	  *menu_;	 // 右键菜单
     CutomTextWdit  *input_widget_;	 // 图元编辑框（修改图元名字的TextEdit框）
     SceneMode	 scene_mode_ = SceneMode::MoveItem;	 // 鼠标编辑模式
@@ -104,6 +123,8 @@ private:
     QGraphicsItem	 *item_temp_;		 // 鼠标当前拖动对象 磁吸线会用到该对象
     QGraphicsLineItem	 *item_hline_,*item_vline_;	 // 水平磁吸线	垂直磁吸线
 
+
 };
 
+#endif // FLOWCHART_SCENE_H
 

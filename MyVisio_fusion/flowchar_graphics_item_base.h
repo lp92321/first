@@ -1,4 +1,20 @@
-#pragma once
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchar_graphics_item_base.h
+*  @brief   图元基类，包含和父对象、子对象连接线，增删节点，获取父、子图元等
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
+#ifndef FLOWCHAR_GRAPHICS_ITEM_BASE_H
+#define FLOWCHAR_GRAPHICS_ITEM_BASE_H
+
 #include <QObject>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -67,10 +83,10 @@ public:
 
 private:
 
-	// 子对象维护
+    // 子对象维护
 	QMap<QString, FlowchartGraphicsItem*>		children_item_;
 	QMap<QString, FlowcharGraphicsLink*>		children_item_link_;
-	// 父对象维护
+    // 父对象维护
 	QMap<QString, FlowchartGraphicsItem*>		father_item_;
 	QMap<QString, FlowcharGraphicsLink*>		father_item_link_;
 
@@ -80,4 +96,4 @@ public:
 	QPointF                         center_point_, left_point_, right_point_, top_point_, bottom_point_;
 };
 
-
+#endif // FLOWCHAR_GRAPHICS_ITEM_BASE_H

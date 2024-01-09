@@ -1,4 +1,19 @@
-#pragma once
+/**
+*****************************************************************************
+*  Copyright (C) 2024 湖南大学机器人学院 All rights reserved
+*  @file    flowchart_view.h
+*  @brief   模型编辑窗口视图类
+*  @author  刘鹏
+*  @date    2024.01.09
+*  @version V0.1
+*----------------------------------------------------------------------------
+*  @note 历史版本  修改人员    修改日期    修改内容
+*  @note
+*****************************************************************************
+*/
+
+#ifndef FLOWCHART_VIEW_H
+#define FLOWCHART_VIEW_H
 
 #include <QGraphicsView>
 #include "flowchart_graphics_item.h"
@@ -38,3 +53,5 @@ private:
     QMap<ItemType, QMenu*>		menus_;//用于部件右键事件菜单选择
     double						view_scale_;//视图缩放比例，构造函数初始化为1
 };
+
+#endif // FLOWCHART_VIEW_H
